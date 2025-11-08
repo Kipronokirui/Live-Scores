@@ -1,6 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { router } from 'expo-router';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function MatchCard({ match }) {
+  const handlePress = () => {
+    router.push(`/match/${match.id}`);
+  };
+
   const getStatusStyle = () => {
     switch (match.status) {
       case 'Match Finished':
@@ -16,7 +21,11 @@ export default function MatchCard({ match }) {
   };
 
   return (
-    <View style={styles.card}>
+    <TouchableOpacity 
+      style={styles.card}
+      onPress={handlePress}
+      activeOpacity={0.7}
+    >
       <View style={[styles.statusBadge, getStatusStyle()]}>
         <Text style={styles.statusText}>{match.status}</Text>
       </View>
@@ -48,7 +57,7 @@ export default function MatchCard({ match }) {
       {match.status === 'Match Finished' && (
         <Text style={styles.finalTime}>FT</Text>
       )}
-    </View>
+    </TouchableOpacity>
   );
 }
 
